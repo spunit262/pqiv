@@ -5646,13 +5646,14 @@ void action(pqiv_action_t action_id, pqiv_action_parameter_t parameter) {/*{{{*/
 			break;
 
 		case ACTION_TOGGLE_FULLSCREEN:
-			if(parameter.pint == 1 || (parameter.pint == 0 && main_window_in_fullscreen == FALSE)) {
+			if(!main_window_in_fullscreen && parameter.pint != 2) {
 				window_fullscreen();
+				return;
 			}
-			else {
+			else if(main_window_in_fullscreen && parameter.pint != 1) {
 				window_unfullscreen();
+				return;
 			}
-			return;
 			break;
 
 		case ACTION_FLIP_HORIZONTALLY:
